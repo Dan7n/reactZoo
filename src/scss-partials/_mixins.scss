@@ -1,0 +1,70 @@
+@mixin center-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@mixin center-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+@mixin center-hv {
+  display: grid;
+  place-content: center;
+}
+
+@mixin btn-hover($backgroundColor, $textColor) {
+  transition: all 200ms ease;
+  @content;
+  &:hover {
+    background-color: $backgroundColor;
+    color: $textColor;
+  }
+}
+
+@mixin after-skewed($backgroundColor, $deg: 2.3deg, $translate: 100%) {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: skewY($deg) translateY($translate);
+    transform-origin: 100%;
+    height: 30%;
+    width: 100%;
+    z-index: 2;
+    background-color: $backgroundColor;
+  }
+}
+
+@mixin btn-padding {
+  padding: 0.4rem 1.7rem;
+}
+
+@mixin animated-btn($bg1, $bt2, $text-color) {
+  padding: 0.4rem 1.7rem;
+  font-size: 1.2rem;
+  font-weight: 200;
+  background-image: linear-gradient(to right, $bg1 0%, $bt2 51%, $bg1 100%);
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: $text-color;
+  border-radius: 3px;
+  &:hover {
+    background-position: right center;
+    color: $text-color;
+    text-decoration: none;
+  }
+}
+
+@mixin media($bp) {
+  @media screen and (max-width: $bp) {
+    @content;
+  }
+}

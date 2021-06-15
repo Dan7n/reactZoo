@@ -1,0 +1,45 @@
+@use "./../scss-partials/mixins";
+@use "./../scss-partials/vars";
+
+body {
+  #root {
+    .intro-page {
+      @include mixins.center-col;
+      justify-content: center;
+      gap: 4rem;
+      text-align: center;
+      background-color: vars.$bg-main;
+      min-height: 100vh;
+      padding: 0 1rem;
+
+      .intro-page__info {
+        @include mixins.center-col;
+        gap: 2rem;
+        margin-top: -13rem;
+
+        h1 {
+          font-size: 3.5rem;
+          width: 100%;
+        }
+        .Typewriter {
+          line-height: 1.6;
+          font-size: 1.3rem;
+        }
+      }
+
+      .intro-page__buttton {
+        button {
+          padding: 1rem 2rem;
+          font-size: 1.4rem;
+          border-radius: 3px;
+          transition: all ease 200ms;
+          cursor: pointer;
+
+          &:hover {
+            background-color: vars.$color-button-hover;
+          }
+        }
+      }
+    }
+  }
+}
