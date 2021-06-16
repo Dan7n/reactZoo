@@ -4,6 +4,8 @@
 //component styling
 @use "./styles/intro-page";
 @use "./styles/main.page.scss";
+@use "./styles/single-animal";
+@use "./styles/animal-details";
 
 * {
   margin: 0;

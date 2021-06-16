@@ -1,0 +1,37 @@
+@use "./../scss-partials/mixins";
+@use "./../scss-partials/vars";
+
+.animal-details {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .back-to-home {
+    position: absolute;
+  }
+  .animal-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+
+    // @include mixins.center-row;
+    .animal-container__img-container {
+      grid-column: span 4;
+      padding: 2rem;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    .animal-container__animal-details {
+      grid-column: span 8;
+      @include mixins.center-col;
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+      }
+    }
+  }
+}

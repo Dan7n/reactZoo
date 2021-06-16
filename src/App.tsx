@@ -5,9 +5,11 @@ import logo from "./logo.svg";
 
 import StartApp from "./components/start-app-button/StartApp";
 import MainPage from "./components/main-page/MainPage";
+import AnimalDetails from "./components/animal-details/AnimalDetails";
 
 import Fade from "react-reveal";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 import IAnimal from "./models/IAnimal";
 import { sessionStorageChecker } from "./utils/sessionStorageChecker";
@@ -65,10 +67,10 @@ function App() {
           )}
         </Route>
       </Switch>
-
+      <Toaster />
       <Switch>
         <Route exact path="/:id">
-          ID page
+          <AnimalDetails />
         </Route>
       </Switch>
     </Router>

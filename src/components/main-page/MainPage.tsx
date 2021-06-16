@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { sessionStorageChecker } from "./../../utils/sessionStorageChecker";
 import IAnimal from "./../../models/IAnimal";
+import SingleAnimal from "./SingleAnimal";
 import Fade from "react-reveal";
 import axios from "axios";
 
@@ -19,10 +20,19 @@ const MainPage = ({ data }: IMainPageProps) => {
   }, []);
 
   const elements = animals.map((el) => {
-    return <div key={el.id}>{el.name}</div>;
+    return (
+      <SingleAnimal
+        key={el.id}
+        id={el.id}
+        name={el.name}
+        imageUrl={el.imageUrl}
+        shortDescription={el.shortDescription}
+        isFed={el.isFed}
+      />
+    );
   });
 
-  let unfedAnimals = 15;
+  let unfedAnimals = countUnfedAnimals(animals);
 
   return (
     <main className="main-page">
@@ -35,8 +45,9 @@ const MainPage = ({ data }: IMainPageProps) => {
         </p>
       </div>
 
-      <div>
+      <div className="main-page__animals">
         <h1>Lär känna våra söta gäster här 🐕</h1>
+        <div className="animals">{elements}</div>
       </div>
     </main>
   );
@@ -46,6 +57,14 @@ function getAndReturnDataFromApi() {
   const sessionStorageObject = sessionStorage.getItem("animalsData") || "";
   const data: IAnimal[] = JSON.parse(sessionStorageObject);
   return data;
+}
+
+function countUnfedAnimals(array: IAnimal[]): number {
+  let count = 0;
+  array.forEach((item) => {
+    !item.isFed && count++;
+  });
+  return count;
 }
 
 export default MainPage;

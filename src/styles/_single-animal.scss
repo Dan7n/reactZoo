@@ -1,0 +1,92 @@
+@use "./../scss-partials/mixins";
+@use "./../scss-partials/vars";
+
+.card-container {
+  @include mixins.center-col;
+  gap: 1.2rem;
+  // width: 70%;
+  height: 10%;
+  width: 24rem;
+  background-color: vars.$bg-white;
+  overflow: hidden;
+  border-radius: 13px;
+  @include mixins.soft-shadow;
+
+  &:hover .card-container__description {
+    height: 19rem;
+
+    h4 {
+      font-size: 2rem;
+    }
+    .desc {
+      height: 8rem;
+      opacity: 1;
+      padding: 1rem 0;
+    }
+  }
+
+  &:hover .card-container__image-container {
+    img {
+      height: 22rem;
+    }
+  }
+
+  .card-container__image-container {
+    height: 100%;
+
+    img {
+      width: 24rem;
+      height: 29rem;
+      object-fit: cover;
+      transition: all ease 350ms;
+    }
+  }
+  .card-container__description {
+    @include mixins.center-col;
+    // height: 100%;
+    height: 14rem;
+    gap: 0.3rem;
+    padding-bottom: 1rem;
+    transition: all 350ms ease;
+
+    h4 {
+      font-size: 3.2rem;
+      text-align: center;
+      transition: font-size ease 350ms;
+    }
+    p {
+      text-align: center;
+      width: 70%;
+    }
+
+    .status {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .fed {
+      color: #52b788;
+    }
+    .hungry {
+      color: #ff4d6d;
+    }
+
+    .btn {
+      background-color: vars.$bg-main;
+      color: vars.$color-paragraph;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .desc {
+      height: 0;
+      opacity: 0;
+      // visibility: hidden;
+      pointer-events: none;
+      transition: all 200ms ease-in-out;
+    }
+  }
+}
