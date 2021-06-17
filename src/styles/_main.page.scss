@@ -15,7 +15,7 @@ body {
         background-color: #272343;
         width: 90%;
         padding: 3rem;
-        margin: 1.5rem 0;
+        margin: 1.5rem 0 5rem 0;
         border-radius: 7px;
         @include mixins.soft-shadow;
         h1 {
@@ -26,6 +26,11 @@ body {
         p {
           color: vars.$bg-white;
           font-size: 1.2rem;
+        }
+
+        .yellow {
+          color: vars.$color-button;
+          font-weight: 500;
         }
       }
 

@@ -5,32 +5,61 @@
   width: 100%;
   height: 100%;
   position: relative;
+  margin-top: 4rem;
 
   .back-to-home {
     position: absolute;
+    top: -3rem;
+    left: 1rem;
+    @include mixins.center-row;
+    gap: 0.8rem;
+    color: black;
+    transition: all 300ms ease-in-out;
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      gap: 1.3rem;
+      transform: scale(1.1);
+    }
   }
   .animal-container {
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    margin-top: 3rem;
 
     // @include mixins.center-row;
     .animal-container__img-container {
       grid-column: span 4;
-      padding: 2rem;
+      padding: 0 3rem;
       img {
         max-width: 100%;
         max-height: 100%;
+        object-fit: cover;
+        object-position: center right;
+        border-radius: 5px;
       }
     }
 
     .animal-container__animal-details {
       grid-column: span 8;
       @include mixins.center-col;
+      align-items: flex-start;
+      justify-content: flex-start;
       h1 {
-        font-size: 2rem;
+        font-size: 3rem;
         text-align: center;
+      }
+      div {
+        display: grid;
+        grid-template-columns: 8rem auto;
+        padding: 0.5rem 0;
       }
     }
   }
