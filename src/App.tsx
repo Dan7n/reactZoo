@@ -24,18 +24,21 @@ function App() {
   //get data from API and set it to sesson storage
   useEffect(() => {
     if (!sessionStorageChecker("animalsData")) {
-      axios.get<IAnimal[]>(animalsDataUrl).then((res) => {
-        if ((res.status = 200)) {
-          const newData = [...dataFromApi, ...res.data];
+      axios
+        .get<IAnimal[]>(animalsDataUrl)
+        .then((res) => {
+          if ((res.status = 200)) {
+            const newData = [...dataFromApi, ...res.data];
 
-          setDataFromApi(newData);
-          sessionStorage.setItem("animalsData", JSON.stringify(res.data));
-        } else {
-          console.log("Request failed");
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
+            setDataFromApi(newData);
+            sessionStorage.setItem("animalsData", JSON.stringify(res.data));
+          } else {
+            console.log("Request failed");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
 
@@ -60,11 +63,11 @@ function App() {
         <Route exact path="/">
           {!startApp ? (
             <Fade>
-              <StartApp start={handleClick} />{" "}
+              <StartApp start={handleClick} />
             </Fade>
           ) : (
             <Fade>
-              <MainPage data={dataFromApi} />
+              <MainPage appStarted={startApp} />
             </Fade>
           )}
         </Route>

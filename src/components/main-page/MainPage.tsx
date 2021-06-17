@@ -7,23 +7,23 @@ import Fade from "react-reveal";
 import axios from "axios";
 
 interface IMainPageProps {
-  data: IAnimal[];
+  // data: IAnimal[];
+  appStarted: boolean;
 }
 
-const MainPage = ({ data }: IMainPageProps) => {
-  const [animals, setAnimals] = useState(data);
-
+const MainPage = ({ appStarted }: IMainPageProps) => {
+  const [animals, setAnimals] = useState<IAnimal[]>([]);
   useEffect(() => {
     if (sessionStorageChecker("animalsData")) {
       const objFromSS = JSON.parse(sessionStorage.getItem("animalsData")!);
 
-      const newData = objFromSS.map((obj: IAnimal) => {
+      const newData: IAnimal[] = objFromSS.map((obj: IAnimal) => {
         if (obj.isFed && dateDiff(obj.lastFed) > 180) {
           obj.isFed = false;
         }
         return obj;
       });
-      setAnimals([...animals, ...newData]);
+      setAnimals([...newData]);
     }
   }, []);
 
@@ -61,8 +61,10 @@ const MainPage = ({ data }: IMainPageProps) => {
           <>
             <p>
               Just nu finns det{" "}
-              <span className="yellow">{unfedAnimals} djur</span> som behöver
-              matas
+              <span className="yellow">
+                {unfedAnimals > 15 ? 15 : unfedAnimals} djur
+              </span>{" "}
+              som behöver matas
             </p>
             <p>
               Kom ihåg att du måste mata djuren var <strong>tredje</strong>{" "}
@@ -74,7 +76,7 @@ const MainPage = ({ data }: IMainPageProps) => {
       </div>
 
       <div className="main-page__animals">
-        <div className="animals">{elements}</div>
+        {appStarted && <div className="animals">{elements}</div>}
       </div>
     </main>
   );

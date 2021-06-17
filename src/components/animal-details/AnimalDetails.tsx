@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import IAnimal from "./../../models/IAnimal";
 import { sessionStorageChecker } from "./../../utils/sessionStorageChecker";
@@ -16,10 +16,15 @@ const AnimalDetails: FC = () => {
   const animalsArray: IAnimal[] = getSessionStorage();
   let currentAnimal = animalsArray.find((el) => el.id === animalId);
   const feedingTimeEl = useRef<HTMLParagraphElement>(null);
+  const [isCurrentAnimalFed, setIsCurrentAnimalFed] = useState<boolean>(false);
 
   function updateAnimal(): void {
     //if it has been less than 3 hrs (180 min)
-    if (currentAnimal?.isFed || dateDiff(currentAnimal?.lastFed!) < 180) {
+    if (
+      currentAnimal?.isFed ||
+      dateDiff(currentAnimal?.lastFed!) < 180 ||
+      isCurrentAnimalFed === true
+    ) {
       toast.error(
         `Tack, men jag är fortfarande ganska mätt! Mata mig igen om typ ${Math.floor(
           (180 - dateDiff(currentAnimal?.lastFed!)) / 60
@@ -33,12 +38,13 @@ const AnimalDetails: FC = () => {
         lastFed: new Date(Date.now()),
       });
 
-      //replace object in array
+      //replace object in array, set state to true, send a notification to the user
       const idx = animalsArray.findIndex((el) => el.id === updatedAnimal.id);
       if (idx !== -1) {
         animalsArray.splice(idx, 1, updatedAnimal);
         sessionStorage.setItem("animalsData", JSON.stringify(animalsArray));
         feedingTimeEl.current!.innerText = "Nyss!";
+        setIsCurrentAnimalFed(true);
         toast.success("Yum! Tack för maten 😄");
       }
     }
