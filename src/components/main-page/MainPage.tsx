@@ -46,15 +46,31 @@ const MainPage = ({ data }: IMainPageProps) => {
     <main className="main-page">
       <div className="main-page__header-warning">
         <h1>Välkommen till kontrollpanelen!</h1>
-        <p>
-          Just nu finns det <span className="yellow">{unfedAnimals} djur</span>{" "}
-          som behöver matas
-        </p>
-        <p>
-          Kom ihåg att du måste mata djuren var <strong>tredje</strong> timme,
-          annars dör dem och så får du sparken 💀
-        </p>
-        <p>Scrolla ner och lär känna våra söta gäster</p>
+        {/* When all the animals have been fed */}
+        {unfedAnimals === 0 && (
+          <>
+            <p>Wow då var alla djuren matade, bra jobbat!</p>
+            <p>
+              Glöm inte att komma tillbaks och mata de igen om en liten stund 😻
+            </p>
+          </>
+        )}
+
+        {/* When there are animals that need feeding */}
+        {unfedAnimals > 0 && (
+          <>
+            <p>
+              Just nu finns det{" "}
+              <span className="yellow">{unfedAnimals} djur</span> som behöver
+              matas
+            </p>
+            <p>
+              Kom ihåg att du måste mata djuren var <strong>tredje</strong>{" "}
+              timme, annars dör dem och så får du sparken 💀
+            </p>
+            <p>Scrolla ner och lär känna våra söta gäster</p>
+          </>
+        )}
       </div>
 
       <div className="main-page__animals">
@@ -69,6 +85,7 @@ function countUnfedAnimals(array: IAnimal[]): number {
   array.forEach((item) => {
     !item.isFed && count++;
   });
+
   return count;
 }
 

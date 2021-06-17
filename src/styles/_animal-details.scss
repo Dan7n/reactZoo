@@ -60,6 +60,21 @@
         display: grid;
         grid-template-columns: 8rem auto;
         padding: 0.5rem 0;
+
+        p {
+          width: 80%;
+        }
+
+        .btn {
+          font-size: 1rem;
+          padding: 0.57rem 1rem;
+          border-radius: 7px;
+          transition: background-color 200ms ease;
+          cursor: pointer;
+          &:hover {
+            background-color: vars.$color-button-hover;
+          }
+        }
       }
     }
   }

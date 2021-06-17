@@ -19,9 +19,11 @@ const AnimalDetails: FC = () => {
 
   function updateAnimal(): void {
     //if it has been less than 3 hrs (180 min)
-    if (dateDiff(currentAnimal?.lastFed!) < 180) {
+    if (currentAnimal?.isFed || dateDiff(currentAnimal?.lastFed!) < 180) {
       toast.error(
-        "Tack, men jag är fortfarande ganska mätt! Mata mig igen om en liten stund"
+        `Tack, men jag är fortfarande ganska mätt! Mata mig igen om typ ${Math.floor(
+          (180 - dateDiff(currentAnimal?.lastFed!)) / 60
+        )} tim`
       );
       return;
     } else {
@@ -98,7 +100,9 @@ const AnimalDetails: FC = () => {
               </p>
             </div>
             <div>
-              <button onClick={updateAnimal}>Mata mig nu</button>
+              <button onClick={updateAnimal} className="btn">
+                Mata mig nu
+              </button>
             </div>
           </div>
         </div>

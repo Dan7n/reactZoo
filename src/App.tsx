@@ -33,7 +33,9 @@ function App() {
         } else {
           console.log("Request failed");
         }
-      });
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   }, []);
 
