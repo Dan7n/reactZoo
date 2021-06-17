@@ -6,11 +6,12 @@
   height: 100%;
   position: relative;
   margin-top: 4rem;
+  overflow: hidden;
 
   .back-to-home {
     position: absolute;
-    top: -3rem;
     left: 1rem;
+    top: 0;
     @include mixins.center-row;
     gap: 0.8rem;
     color: black;
@@ -34,6 +35,13 @@
     grid-template-columns: repeat(12, 1fr);
     margin-top: 3rem;
 
+    @include mixins.media(700px) {
+      @include mixins.center-col;
+      gap: 4rem;
+      // padding: 0 2rem;
+      margin-top: 5rem;
+    }
+
     // @include mixins.center-row;
     .animal-container__img-container {
       grid-column: span 4;
@@ -45,6 +53,10 @@
         object-position: center right;
         border-radius: 5px;
       }
+
+      @include mixins.media(900px) {
+        grid-column: span 5;
+      }
     }
 
     .animal-container__animal-details {
@@ -52,17 +64,47 @@
       @include mixins.center-col;
       align-items: flex-start;
       justify-content: flex-start;
+
+      @include mixins.media(900px) {
+        grid-column: span 7;
+      }
+
       h1 {
         font-size: 3rem;
         text-align: center;
+        @include mixins.media(700px) {
+          width: 100%;
+          margin-bottom: 2rem;
+        }
       }
       div {
         display: grid;
         grid-template-columns: 8rem auto;
         padding: 0.5rem 0;
 
+        @include mixins.media(700px) {
+          @include mixins.center-col;
+          gap: 0.4rem;
+          width: 100%;
+
+          h4 {
+            font-size: 1.05rem;
+          }
+
+          .center-text {
+            text-align: center;
+          }
+
+          .whitespace-bottom {
+            margin-bottom: 2rem;
+          }
+        }
+
         p {
           width: 80%;
+          @include mixins.media(700px) {
+            width: 100%;
+          }
         }
 
         .btn {

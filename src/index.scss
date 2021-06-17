@@ -32,6 +32,11 @@ body {
     color: vars.$color-paragraph;
     border: none;
   }
+
+  #root {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 code {

@@ -85,7 +85,7 @@ const AnimalDetails: FC = () => {
             <h1>{currentAnimal?.name}</h1>
             <div>
               <h4>latinska Namn:</h4>
-              <p>{currentAnimal?.latinName}</p>
+              <p className="center-text">{currentAnimal?.latinName}</p>
             </div>
             <div>
               <h4>Beskrivning:</h4>
@@ -93,11 +93,11 @@ const AnimalDetails: FC = () => {
             </div>
             <div>
               <h4>Mediciner:</h4>
-              <p>{currentAnimal?.medicine}</p>
+              <p className="center-text">{currentAnimal?.medicine}</p>
             </div>
             <div>
               <h4>Senast matad:</h4>
-              <p ref={feedingTimeEl}>
+              <p className="center-text whitespace-bottom" ref={feedingTimeEl}>
                 {currentAnimal?.lastFed && dateDiff(currentAnimal?.lastFed) > 15
                   ? "Fööör länge sedan!"
                   : "ca " +
@@ -106,6 +106,7 @@ const AnimalDetails: FC = () => {
               </p>
             </div>
             <div>
+              <h4>Mata:</h4>
               <button onClick={updateAnimal} className="btn">
                 Mata mig nu
               </button>
