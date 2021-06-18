@@ -6,6 +6,7 @@ import logo from "./logo.svg";
 import StartApp from "./components/start-app-button/StartApp";
 import MainPage from "./components/main-page/MainPage";
 import AnimalDetails from "./components/animal-details/AnimalDetails";
+import NotFound from "./components/not-found/NotFound";
 
 import Fade from "react-reveal";
 import axios from "axios";
@@ -71,13 +72,14 @@ function App() {
             </Fade>
           )}
         </Route>
-      </Switch>
-      <Toaster />
-      <Switch>
-        <Route exact path="/:id">
+        <Route path="/feed-animal/:id">
           <AnimalDetails />
         </Route>
+        <Route>
+          <NotFound />
+        </Route>
       </Switch>
+      <Toaster />
     </Router>
   );
 }

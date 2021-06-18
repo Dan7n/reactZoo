@@ -1,6 +1,12 @@
 @use "./../scss-partials/mixins";
 @use "./../scss-partials/vars";
 
+.error {
+  margin-top: 7rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
 .animal-details {
   width: 100%;
   height: 100%;
@@ -38,7 +44,6 @@
     @include mixins.media(700px) {
       @include mixins.center-col;
       gap: 4rem;
-      // padding: 0 2rem;
       margin-top: 5rem;
     }
 
@@ -103,7 +108,7 @@
         p {
           width: 80%;
           @include mixins.media(700px) {
-            width: 100%;
+            width: 95%;
           }
         }
 

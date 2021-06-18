@@ -28,7 +28,7 @@ const SingleAnimal: FC<IProps> = ({
         <p className={`status ${isFed ? "fed" : "hungry"}`}>
           {isFed ? "Mätt" : "Hungrig"}
         </p>
-        <Link to={`/${id}`} className="btn">
+        <Link to={`/feed-animal/${id}`} className="btn">
           Mata mig
         </Link>
       </div>

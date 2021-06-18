@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useRef, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import IAnimal from "./../../models/IAnimal";
 import { sessionStorageChecker } from "./../../utils/sessionStorageChecker";
@@ -18,11 +18,23 @@ const AnimalDetails: FC = () => {
   const feedingTimeEl = useRef<HTMLParagraphElement>(null);
   const [isCurrentAnimalFed, setIsCurrentAnimalFed] = useState<boolean>(false);
 
+  //check if animal has been fed within the last three hrs
+  const isRecentlyFed = (): boolean => {
+    return dateDiff(currentAnimal?.lastFed!) < 180;
+  };
+
+  //update the object's isFed property if the animal hasn't been fed recently
+  useEffect(() => {
+    if (!isRecentlyFed()) {
+      if (currentAnimal) currentAnimal.isFed = false;
+    }
+  }, []);
+
   function updateAnimal(): void {
-    //if it has been less than 3 hrs (180 min)
+    //if it has been less than 3 hrs
     if (
       currentAnimal?.isFed ||
-      dateDiff(currentAnimal?.lastFed!) < 180 ||
+      isRecentlyFed() ||
       isCurrentAnimalFed === true
     ) {
       toast.error(
@@ -38,7 +50,7 @@ const AnimalDetails: FC = () => {
         lastFed: new Date(Date.now()),
       });
 
-      //replace object in array, set state to true, send a notification to the user
+      //replace object in array, set state to true, send a notification to the user that the operation is successful
       const idx = animalsArray.findIndex((el) => el.id === updatedAnimal.id);
       if (idx !== -1) {
         animalsArray.splice(idx, 1, updatedAnimal);
@@ -54,7 +66,9 @@ const AnimalDetails: FC = () => {
     <Fade left>
       <section className="animal-details">
         {!currentAnimal && (
-          <h1>Opps! Något gick fel! Vänligen ladda om sidan :)</h1>
+          <h1 className="error">
+            Opps! Detta djur har vi inte i zoon just än 🐴
+          </h1>
         )}
 
         <Link className="back-to-home" to="/">
@@ -76,43 +90,49 @@ const AnimalDetails: FC = () => {
           Tillbaks till startsidan
         </Link>
 
-        <div className="animal-container">
-          <div className="animal-container__img-container">
-            <img src={currentAnimal?.imageUrl} />
-          </div>
+        {currentAnimal && (
+          <div className="animal-container">
+            <div className="animal-container__img-container">
+              <img src={currentAnimal?.imageUrl} />
+            </div>
 
-          <div className="animal-container__animal-details">
-            <h1>{currentAnimal?.name}</h1>
-            <div>
-              <h4>latinska Namn:</h4>
-              <p className="center-text">{currentAnimal?.latinName}</p>
-            </div>
-            <div>
-              <h4>Beskrivning:</h4>
-              <p>{currentAnimal?.longDescription}</p>
-            </div>
-            <div>
-              <h4>Mediciner:</h4>
-              <p className="center-text">{currentAnimal?.medicine}</p>
-            </div>
-            <div>
-              <h4>Senast matad:</h4>
-              <p className="center-text whitespace-bottom" ref={feedingTimeEl}>
-                {currentAnimal?.lastFed && dateDiff(currentAnimal?.lastFed) > 15
-                  ? "Fööör länge sedan!"
-                  : "ca " +
-                    dateDiff(currentAnimal?.lastFed!) +
-                    " minuter sedan"}
-              </p>
-            </div>
-            <div>
-              <h4>Mata:</h4>
-              <button onClick={updateAnimal} className="btn">
-                Mata mig nu
-              </button>
+            <div className="animal-container__animal-details">
+              <h1>{currentAnimal?.name}</h1>
+              <div>
+                <h4>latinska Namn:</h4>
+                <p className="center-text">{currentAnimal?.latinName}</p>
+              </div>
+              <div>
+                <h4>Beskrivning:</h4>
+                <p>{currentAnimal?.longDescription}</p>
+              </div>
+              <div>
+                <h4>Mediciner:</h4>
+                <p className="center-text">{currentAnimal?.medicine}</p>
+              </div>
+              <div>
+                <h4>Senast matad:</h4>
+                <p
+                  className="center-text whitespace-bottom"
+                  ref={feedingTimeEl}
+                >
+                  {currentAnimal?.lastFed &&
+                  dateDiff(currentAnimal?.lastFed) > 15
+                    ? "Fööör länge sedan!"
+                    : "För ca " +
+                      dateDiff(currentAnimal?.lastFed!) +
+                      " min sedan"}
+                </p>
+              </div>
+              <div>
+                <h4>Mata:</h4>
+                <button onClick={updateAnimal} className="btn">
+                  Mata mig nu
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
     </Fade>
   );
